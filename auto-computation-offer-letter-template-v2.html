@@ -53,14 +53,25 @@
 
     .top-header {
       position: absolute;
-      inset: 0 0 auto 0;
+      inset: -2px -2px auto -2px;
       height: 48mm;
-      background-image: url("top_header_embedded.svg");
+      background-image: url("top_header.png");
       background-repeat: no-repeat;
       background-size: 100% 100%;
       background-position: top center;
       pointer-events: none;
-      border:none;
+      border: none;
+    }
+
+    /* Masking element for html2canvas rendering artifacts */
+    .top-header::after {
+      content: "";
+      position: absolute;
+      left: -2px;
+      right: -2px;
+      bottom: -1px;
+      height: 3px;
+      background: #ffffff;
     }
 
     .content {
@@ -70,7 +81,7 @@
     }
 
     .page.page-1 .content {
-      padding-top: 45mm;
+      padding-top: 36mm;
     }
 
     .letterhead {
@@ -78,7 +89,7 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: 24px;
-      margin-bottom: 26px;
+      margin-bottom: 14px;
     }
 
     .logo-area {
@@ -89,7 +100,7 @@
       width: 255px;
       max-width: 100%;
       display: block;
-      margin-bottom: 12px;
+      margin-bottom: 6px;
     }
 
     .company-name {
@@ -98,7 +109,7 @@
       letter-spacing: 1.4px;
       color: var(--accent-dark);
       text-transform: uppercase;
-      margin-bottom: 6px;
+      margin-bottom: 2px;
     }
 
     .company-meta {
@@ -114,7 +125,7 @@
 
     .top-meta {
       width: 32%;
-      padding-top: 8px;
+      padding-top: 2px;
       font-size: 12px;
       color: #555;
       line-height: 1.7;
@@ -135,7 +146,7 @@
     }
 
     .to-block {
-      margin-top: 10px;
+      margin-top: 6px;
       width: 56%;
       font-size: 13px;
       line-height: 1.65;
@@ -143,7 +154,7 @@
     }
 
     .subject {
-      margin: 20px 0 14px;
+      margin: 12px 0 10px;
       font-size: 13px;
       line-height: 1.6;
       padding: 10px 14px;
@@ -154,14 +165,14 @@
     .salutation {
       font-size: 15px;
       font-weight: 700;
-      margin: 20px 0 14px;
+      margin: 12px 0 10px;
       color: var(--accent-dark);
     }
 
     .lead {
       font-size: 13px;
       line-height: 1.8;
-      margin: 0 0 18px;
+      margin: 0 0 10px;
     }
 
     .section {
@@ -614,77 +625,30 @@
         <p class="lead">We are pleased to offer you employment with Auto Computation for the position of [Designation] on the following terms and conditions:</p>
 
         <div class="section">
-          <div class="section-title">1. Employment Details & Compensation</div>
-          <p><strong>Role & Location:</strong> You are offered a full-time role as <strong>[Designation]</strong> in the <strong>[Department/Team]</strong>, reporting to <strong>[Reporting Manager / Management]</strong>. Your proposed joining date is <strong>[joining_date]</strong>, and your initial work location is <strong>[work_location]</strong> (subject to business-directed changes).</p>
-          <p><strong>Probation & Confirmation:</strong> You will undergo a 90-day probation period to assess your performance and suitability. Upon satisfactory completion, your employment will be confirmed in writing.</p>
-          <p><strong>Compensation:</strong> During probation, your Gross Monthly Salary will be <strong>₹[probation_salary]</strong>. Post-confirmation, it will be revised to <strong>₹[revised_salary]</strong> per month. Salaries are paid monthly via bank transfer/NEFT, subject to applicable payroll and statutory deductions (e.g., PF/ESI).</p>
-        </div>
-        <div class="section">
-          <div class="section-title">2. Working Days and Hours</div>
-          <p>Your normal working schedule will be Monday to Saturday, and your regular working hours will be 10:00 AM to 07:00 PM, with such breaks as may be permitted by the company. You may be required to work beyond regular hours when business or project requirements demand.</p>
-        </div>
-
-        <div class="section">
-          <div class="section-title">3. Leave</div>
-          <p>You will be entitled to 12 (twelve) days of leave in a calendar year, on a pro-rata basis from the date of joining, subject to company policy and approval. Sick leave beyond 2 consecutive working days may require a medical certificate.</p>
-        </div>
-      </div>
-      <div class="footer-contact">
-        <div class="contact-row"><span>Phone: +91 9477085478</span><span class="icon-box blue">☎</span></div>
-        <div class="contact-row"><span>www.autocomputation.com<br />contact@autocomputation.com</span><span class="icon-box dark">◎</span></div>
-      </div>
-      <div class="diamonds">
-        <span class="diamond d1"></span><span class="diamond d2"></span><span class="diamond d3"></span><span class="diamond d4"></span>
-        <span class="diamond d5"></span><span class="diamond d6"></span><span class="diamond d7"></span><span class="diamond d8"></span>
-        <span class="diamond d9"></span><span class="diamond d10"></span><span class="diamond d11"></span><span class="diamond d12"></span>
-      </div>
-      <div class="page-number">1</div>
-    </section><section class="page">
-      <div class="top-header"></div>
-      <div class="content">
-        <div class="continuation">Offer Letter - Continued</div>
-
-
-
-        <div class="section">
-          <div class="section-title">4. Notice Period</div>
-          <p>During probation, either party may terminate the employment by giving 15 days’ prior written notice or salary in lieu thereof. After confirmation, either party may terminate the employment by giving 30 days’ prior written notice or salary in lieu thereof, subject to proper handover and company approval.</p>
-        </div>
-
-        <div class="section">
-          <div class="section-title">5. Documents and Verification</div>
-          <p>At the time of joining, you will be required to submit self-attested copies of your Aadhaar Card, PAN Card, photograph, address proof, bank details, educational documents, and previous employment documents, if any. This offer is subject to verification of the information and documents provided by you.</p>
-        </div>
-
-        <div class="section">
-          <div class="section-title">6. Confidentiality and Work Product</div>
-          <p>During your employment, you may have access to confidential information relating to the company, its clients, projects, systems, code, designs, credentials, pricing, and internal processes. You shall keep all such information strictly confidential during and after employment.</p>
-          <p>Any code, design, document, content, deliverable, system, file, or other work product created, developed, or contributed by you in the course of your employment for the company or its clients shall belong exclusively to Auto Computation / its client, as applicable.</p>
-        </div>
-
-        <div class="section">
-          <div class="section-title">7. Conduct and Policies</div>
-          <p>You shall follow the lawful instructions of the management and comply with the company’s rules, policies, security practices, and professional standards.</p>
-        </div>
-        <div class="section">
-          <div class="section-title">8. Acceptance of Offer</div>
-          <p>Please sign and return a copy of this letter as a token of your acceptance of this offer.</p>
+          <ul>
+            <li><strong>Role & Location:</strong> Full-time <strong>[Designation]</strong> in <strong>[Department/Team]</strong>, reporting to <strong>[Reporting Manager / Management]</strong>. Joining on <strong>[joining_date]</strong> at <strong>[work_location]</strong>.</li>
+            <li><strong>Compensation:</strong> Gross Salary during 90-day probation is <strong>₹[probation_salary]</strong>/month. Post-confirmation, it revises to <strong>₹[revised_salary]</strong>/month (subject to statutory deductions).</li>
+            <li><strong>Working Hours:</strong> Monday to Saturday, 10:00 AM to 07:00 PM.</li>
+            <li><strong>Leave & Notice:</strong> 12 days annual paid leave. Notice period is 15 days during probation, and 30 days post-confirmation.</li>
+            <li><strong>Confidentiality & IP:</strong> You must maintain strict confidentiality of company information. All intellectual property created during employment belongs exclusively to Auto Computation.</li>
+            <li><strong>Compliance:</strong> This offer is subject to successful document verification. You are expected to adhere to all company policies and professional standards. Please sign and return a copy of this letter as a token of your acceptance.</li>
+          </ul>
         </div>
 
         <div class="closing">
           <p>We look forward to your association with Auto Computation and wish you success in your role.</p>
         </div>
 
-        <div style="margin-top: 16px; font-size: 12px; line-height: 1.6;">
+        <div style="margin-top: 8px; font-size: 12px; line-height: 1.6;">
           <div>For Auto Computation</div>
-          <div style="height: 38px;"></div>
+          <div style="height: 24px;"></div>
           <div class="sig-name">[Name of Signatory]</div>
           <div>Proprietor / Authorized Signatory</div>
         </div>
 
-        <div class="acceptance" style="margin-top: 24px;">
+        <div class="acceptance" style="margin-top: 12px; padding-top: 14px;">
           <div class="acceptance-title">Acceptance</div>
-          <p>I, [Employee Full Name], have read and understood the terms of this Offer Letter and hereby accept the offer of employment for the position of [Designation] with Auto Computation.</p>
+          <p style="margin-bottom: 12px;">I, [Employee Full Name], have read and understood the terms of this Offer Letter and hereby accept the offer of employment for the position of [Designation] with Auto Computation.</p>
 
           <div class="signature-lines">
             <div class="line-field">Employee Signature<span class="line"></span></div>
@@ -694,16 +658,11 @@
           </div>
         </div>
       </div>
-      <div class="footer-contact">
-        <div class="contact-row"><span>Phone: +91 9477085478</span><span class="icon-box blue">☎</span></div>
-        <div class="contact-row"><span>www.autocomputation.com<br />contact@autocomputation.com</span><span class="icon-box dark">◎</span></div>
-      </div>
       <div class="diamonds">
         <span class="diamond d1"></span><span class="diamond d2"></span><span class="diamond d3"></span><span class="diamond d4"></span>
         <span class="diamond d5"></span><span class="diamond d6"></span><span class="diamond d7"></span><span class="diamond d8"></span>
         <span class="diamond d9"></span><span class="diamond d10"></span><span class="diamond d11"></span><span class="diamond d12"></span>
       </div>
-      <div class="page-number">2</div>
     </section>
   </div>
 
