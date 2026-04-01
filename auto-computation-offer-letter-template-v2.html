@@ -1,517 +1,872 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Auto Computation Offer Letter</title>
-  <style>
-    :root {
-      --page-bg: #ffffff;
-      --text: #3e3e3e;
-      --muted: #6c6c6c;
-      --accent: #10a8e8;
-      --accent-dark: #3b3d43;
-      --accent-blue: #0986d5;
-      --accent-orange: #eb6a4d;
-      --line: rgba(0,0,0,.14);
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Auto Computation Offer Letter</title>
+    <style>
+      :root {
+        --page-bg: #ffffff;
+        --text: #3e3e3e;
+        --muted: #6c6c6c;
+        --accent: #10a8e8;
+        --accent-dark: #3b3d43;
+        --accent-blue: #0986d5;
+        --accent-orange: #eb6a4d;
+        --line: rgba(0, 0, 0, 0.14);
+      }
 
-    * {
-      box-sizing: border-box;
-    }
+      * {
+        box-sizing: border-box;
+      }
 
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: #e8ecf1;
-      color: var(--text);
-      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
-    }
+      html,
+      body {
+        margin: 0;
+        padding: 0;
+        background: #e8ecf1;
+        color: var(--text);
+        font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      }
 
-    body {
-      padding: 28px 0 60px;
-    }
+      body {
+        padding: 28px 0 60px;
+      }
 
-    .document {
-      width: 100%;
-    }
+      .document {
+        width: 100%;
+      }
 
-    .page {
-      position: relative;
-      width: 210mm;
-      height: 296.5mm;
-      margin: 0 auto 22px;
-      background: var(--page-bg);
-      box-shadow: 0 18px 45px rgba(25, 45, 70, .12);
-      overflow: hidden; 
-      padding: 26mm 26mm 20mm;
-    }
+      .page {
+        position: relative;
+        width: 210mm;
+        height: 296.5mm;
+        margin: 0 auto 22px;
+        background: var(--page-bg);
+        box-shadow: 0 18px 45px rgba(25, 45, 70, 0.12);
+        overflow: hidden;
+        padding: 36mm 26mm 28mm;
+      }
 
-    .top-header {
-      position: absolute;
-      top: -2px; left: -2px; right: -2px;
-      height: 48mm;
-      background-image: url("top_header.png");
-      background-repeat: no-repeat;
-      background-size: 100% 100%;
-      background-position: top center;
-      pointer-events: none;
-      border: none;
-    }
-    
-    .top-header::after {
-      content: ""; position: absolute; left: -2px; right: -2px;
-      bottom: -1px; height: 3px; background: #ffffff;
-    }
+      .top-header {
+        position: absolute;
+        top: -2px;
+        left: -2px;
+        right: -2px;
+        height: 48mm;
+        background-image: url("top_header.png");
+        background-repeat: no-repeat;
+        background-size: 100% 100%;
+        background-position: top center;
+        pointer-events: none;
+        border: none;
+      }
 
-    .content { position: relative; z-index: 2; }
+      .top-header::after {
+        content: "";
+        position: absolute;
+        left: -2px;
+        right: -2px;
+        bottom: -1px;
+        height: 3px;
+        background: #ffffff;
+      }
 
-    .letterhead {
-      display: flex; align-items: flex-start; justify-content: space-between;
-      gap: 20px; margin-bottom: 10px;
-    }
+      .content {
+        position: relative;
+        z-index: 2;
+      }
 
-    .logo-area { width: 55%; }
+      .letterhead {
+        display: flex;
+        align-items: flex-start;
+        justify-content: space-between;
+        gap: 20px;
+        margin-bottom: 10px;
+      }
 
-    .logo { width: 220px; max-width: 100%; display: block; margin-bottom: 4px; }
+      .logo-area {
+        width: 55%;
+      }
 
-    .company-name {
-      font-size: 10px; font-weight: 700; letter-spacing: 1.4px;
-      color: var(--accent-dark); text-transform: uppercase; margin-bottom: 2px;
-    }
+      .logo {
+        width: 220px;
+        max-width: 100%;
+        display: block;
+        margin-bottom: 4px;
+      }
 
-    .company-meta { font-size: 10px; line-height: 1.4; color: #555; }
+      .company-name {
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.4px;
+        color: var(--accent-dark);
+        text-transform: uppercase;
+        margin-bottom: 2px;
+      }
 
-    .top-meta {
-      width: 40%; margin-top: 40px; font-size: 10px; color: #555; line-height: 1.5;
-    }
+      .company-meta {
+        font-size: 10px;
+        line-height: 1.4;
+        color: #555;
+      }
 
-    .top-meta .meta-row {
-      display: flex; gap: 8px; justify-content: space-between;
-      border-bottom: 1px solid rgba(0,0,0,.08); padding: 2px 0;
-    }
+      .top-meta {
+        width: 40%;
+        margin-top: 40px;
+        font-size: 10px;
+        color: #555;
+        line-height: 1.5;
+      }
 
-    .top-meta .label { color: var(--accent-dark); font-weight: 600; white-space: nowrap; }
+      .top-meta .meta-row {
+        display: flex;
+        gap: 8px;
+        justify-content: space-between;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+        padding: 2px 0;
+      }
 
-    .to-block { margin-top: 6px; font-size: 11px; line-height: 1.4; color: #404040; }
+      .top-meta .label {
+        color: var(--accent-dark);
+        font-weight: 600;
+        white-space: nowrap;
+      }
 
-    .subject {
-      margin: 8px 0; font-size: 11px; line-height: 1.4; padding: 6px 10px;
-      border-left: 4px solid var(--accent); background: rgba(16, 168, 232, .08); font-weight: 600;
-    }
+      .to-block {
+        margin-top: 6px;
+        font-size: 11px;
+        line-height: 1.4;
+        color: #404040;
+      }
 
-    .salutation { font-size: 12px; font-weight: 700; margin: 8px 0; color: var(--accent-dark); }
+      .subject {
+        margin: 8px 0;
+        font-size: 11px;
+        line-height: 1.4;
+        padding: 6px 10px;
+        border-left: 4px solid var(--accent);
+        background: rgba(16, 168, 232, 0.08);
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
 
-    .lead { font-size: 11px; line-height: 1.4; margin: 0 0 8px; }
+      .salutation {
+        font-size: 12px;
+        font-weight: 700;
+        margin: 8px 0;
+        color: var(--accent-dark);
+      }
 
-    .section { margin-bottom: 6px; }
+      .lead {
+        font-size: 11px;
+        line-height: 1.4;
+        margin: 0 0 8px;
+      }
 
-    .section-title { font-size: 11px; font-weight: 700; color: var(--accent-dark); margin: 0 0 2px; }
+      .section {
+        margin-bottom: 6px;
+      }
 
-    .section p { margin: 0; font-size: 11px; line-height: 1.4; text-align: justify; }
+      .section-title {
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--accent-dark);
+        margin: 0 0 2px;
+      }
 
-    .closing { margin-top: 8px; }
+      .section p {
+        margin: 0;
+        font-size: 11px;
+        line-height: 1.4;
+        text-align: justify;
+      }
 
-    .closing p { margin: 0 0 8px; font-size: 11px; line-height: 1.4; text-align: justify; }
+      .closing {
+        margin-top: 8px;
+      }
 
-    .signature-wrap { margin-top: 8px; font-size: 11px; line-height: 1.4; }
-    
-    .sig-name { font-weight: 700; color: var(--accent-dark); margin-top: 20px; }
+      .closing p {
+        margin: 0 0 8px;
+        font-size: 11px;
+        line-height: 1.4;
+        text-align: justify;
+      }
 
-    .acceptance { margin-top: 10px; padding-top: 10px; border-top: 1px solid var(--line); }
+      .signature-wrap {
+        margin-top: 8px;
+        font-size: 11px;
+        line-height: 1.4;
+      }
 
-    .acceptance-title {
-      font-size: 11.5px; font-weight: 800; letter-spacing: .8px;
-      color: var(--accent-dark); text-transform: uppercase; margin-bottom: 4px;
-    }
+      .sig-name {
+        font-weight: 700;
+        color: var(--accent-dark);
+        margin-top: 20px;
+      }
 
-    .acceptance p { margin: 0 0 8px; font-size: 10.5px; line-height: 1.4; text-align: justify; }
+      .acceptance {
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid var(--line);
+      }
 
-    .signature-lines {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 10px 24px; margin-top: 6px;
-    }
+      .acceptance-title {
+        font-size: 11.5px;
+        font-weight: 800;
+        letter-spacing: 0.8px;
+        color: var(--accent-dark);
+        text-transform: uppercase;
+        margin-bottom: 4px;
+      }
 
-    .line-field { font-size: 10.5px; line-height: 1.4; }
+      .acceptance p {
+        margin: 0 0 8px;
+        font-size: 10.5px;
+        line-height: 1.4;
+        text-align: justify;
+      }
 
-    .line { display: block; border-bottom: 1px solid rgba(0,0,0,.4); min-height: 12px; margin-top: 2px; }
-    
-    .diamonds {
-      position: absolute; right: -14mm; bottom: -12mm; width: 118mm; height: 78mm;
-      pointer-events: none; opacity: .55; z-index: 1;
-    }
+      .signature-lines {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px 24px;
+        margin-top: 6px;
+      }
 
-    .diamond {
-      position: absolute; width: 22mm; height: 22mm; transform: rotate(45deg);
-      background: rgba(180, 183, 188, .13);
-    }
+      .line-field {
+        font-size: 10.5px;
+        line-height: 1.4;
+      }
 
-    .d1 { right: 2mm; bottom: 2mm; } .d2 { right: 19mm; bottom: 13mm; }
-    .d3 { right: 36mm; bottom: 1mm; } .d4 { right: 53mm; bottom: 13mm; }
-    .d5 { right: 70mm; bottom: 1mm; } .d6 { right: 87mm; bottom: 13mm; }
-    .d7 { right: 8mm; bottom: 28mm; } .d8 { right: 25mm; bottom: 40mm; }
-    .d9 { right: 42mm; bottom: 28mm; } .d10 { right: 59mm; bottom: 40mm; }
-    .d11 { right: 76mm; bottom: 28mm; } .d12 { right: 93mm; bottom: 40mm; }
+      .line {
+        display: block;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.4);
+        min-height: 12px;
+        margin-top: 2px;
+      }
 
-    /* Generator Form Styles */
-    .generator-container {
-      max-width: 800px;
-      margin: 0 auto 40px;
-      background: #fff;
-      padding: 30px;
-      border-radius: 8px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-    }
-    .generator-header {
-      font-size: 24px;
-      font-weight: bold;
-      color: var(--accent-dark);
-      margin-bottom: 20px;
-      border-bottom: 2px solid var(--line);
-      padding-bottom: 10px;
-    }
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-    .form-group {
-      display: flex;
-      flex-direction: column;
-    }
-    .form-group.full-width {
-      grid-column: 1 / -1;
-    }
-    .form-group label {
-      font-size: 13px;
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-    }
-    .form-group input, .form-group select, .form-group textarea {
-      padding: 10px 12px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      font-size: 15px;
-      font-family: inherit;
-    }
-    .form-group input:focus, .form-group select:focus, .form-group textarea:focus {
-      outline: none;
-      border-color: var(--accent);
-      box-shadow: 0 0 0 3px rgba(16, 168, 232, 0.1);
-    }
-    .btn-generate {
-      background: var(--accent);
-      color: #fff;
-      border: none;
-      padding: 14px 24px;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 30px;
-      width: 100%;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    .btn-generate:hover {
-      background: var(--accent-blue);
-    }
+      .diamonds {
+        position: absolute;
+        right: -14mm;
+        bottom: -12mm;
+        width: 118mm;
+        height: 78mm;
+        pointer-events: none;
+        opacity: 0.55;
+        z-index: 1;
+      }
 
-    /* Action Bar (Download) Styles */
-    .action-bar { max-width: 210mm; margin: 0 auto 20px; text-align: right; display: none; }
-    .btn-download {
-      background: var(--accent-orange); color: #fff; border: none; padding: 10px 20px;
-      font-size: 14px; font-weight: bold; border-radius: 4px; cursor: pointer;
-      box-shadow: 0 4px 10px rgba(235, 106, 77, 0.3);
-    }
-    .btn-download:hover { opacity: 0.9; }
+      .diamond {
+        position: absolute;
+        width: 22mm;
+        height: 22mm;
+        transform: rotate(45deg);
+        background: rgba(180, 183, 188, 0.13);
+      }
 
-    @media screen and (max-width: 900px) {
-      body { padding: 10px; }
-      .page { width: 100%; min-height: auto; }
-    }
-    @media print {
-      body { padding: 0; background: #fff; }
-      .page { margin: 0; box-shadow: none; }
-      .generator-container, .action-bar { display: none !important; }
-    }
+      .d1 {
+        right: 2mm;
+        bottom: 2mm;
+      }
+      .d2 {
+        right: 19mm;
+        bottom: 13mm;
+      }
+      .d3 {
+        right: 36mm;
+        bottom: 1mm;
+      }
+      .d4 {
+        right: 53mm;
+        bottom: 13mm;
+      }
+      .d5 {
+        right: 70mm;
+        bottom: 1mm;
+      }
+      .d6 {
+        right: 87mm;
+        bottom: 13mm;
+      }
+      .d7 {
+        right: 8mm;
+        bottom: 28mm;
+      }
+      .d8 {
+        right: 25mm;
+        bottom: 40mm;
+      }
+      .d9 {
+        right: 42mm;
+        bottom: 28mm;
+      }
+      .d10 {
+        right: 59mm;
+        bottom: 40mm;
+      }
+      .d11 {
+        right: 76mm;
+        bottom: 28mm;
+      }
+      .d12 {
+        right: 93mm;
+        bottom: 40mm;
+      }
 
-    .bottom-footer {
-      position: absolute;
-      bottom: 4mm;
-      right: 20mm;
-      z-index: 10;
-      display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      gap: 5px;
-      font-size: 10px;
-      color: #666;
-    }
-    .bottom-footer .footer-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      text-align: right;
-      line-height: 1.3;
-    }
-    .bottom-footer .icon {
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      fill: #fff;
-    }
-    .bottom-footer .bg-blue { background: #00a0e3; }
-    .bottom-footer .bg-dark { background: #404040; height: 32px; }
-  </style>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-</head>
-<body>
+      /* Generator Form Styles */
+      .generator-container {
+        max-width: 800px;
+        margin: 0 auto 40px;
+        background: #fff;
+        padding: 30px;
+        border-radius: 8px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+      }
+      .generator-header {
+        font-size: 24px;
+        font-weight: bold;
+        color: var(--accent-dark);
+        margin-bottom: 20px;
+        border-bottom: 2px solid var(--line);
+        padding-bottom: 10px;
+      }
+      .form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+      }
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+      .form-group.full-width {
+        grid-column: 1 / -1;
+      }
+      .form-group label {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 6px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        padding: 10px 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        font-size: 15px;
+        font-family: inherit;
+      }
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: var(--accent);
+        box-shadow: 0 0 0 3px rgba(16, 168, 232, 0.1);
+      }
+      .btn-generate {
+        background: var(--accent);
+        color: #fff;
+        border: none;
+        padding: 14px 24px;
+        font-size: 16px;
+        font-weight: bold;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-top: 30px;
+        width: 100%;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+      }
+      .btn-generate:hover {
+        background: var(--accent-blue);
+      }
 
-  <!-- Input Form -->
-  <div class="generator-container" id="generator-container">
-    <div class="generator-header">Offer Letter Generator</div>
-    <div class="form-grid">
-      <div class="form-group">
-        <label>Ref. No.</label>
-        <input type="text" id="inp_ref_no" value="AC/OL/2024/" required>
+      /* Action Bar (Download) Styles */
+      .action-bar {
+        max-width: 210mm;
+        margin: 0 auto 20px;
+        text-align: right;
+        display: none;
+      }
+      .btn-download {
+        background: var(--accent-orange);
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        font-size: 14px;
+        font-weight: bold;
+        border-radius: 4px;
+        cursor: pointer;
+        box-shadow: 0 4px 10px rgba(235, 106, 77, 0.3);
+      }
+      .btn-download:hover {
+        opacity: 0.9;
+      }
+
+      @media screen and (max-width: 900px) {
+        body {
+          padding: 10px;
+        }
+        .page {
+          width: 100%;
+          min-height: auto;
+        }
+      }
+      @media print {
+        body {
+          padding: 0;
+          background: #fff;
+        }
+        .page {
+          margin: 0;
+          box-shadow: none;
+        }
+        .generator-container,
+        .action-bar {
+          display: none !important;
+        }
+      }
+
+      .bottom-footer {
+        position: absolute;
+        bottom: 10mm;
+        right: 20mm;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 5px;
+        font-size: 10px;
+        color: #666;
+      }
+      .bottom-footer .footer-row {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        text-align: right;
+        line-height: 1.3;
+      }
+      .bottom-footer .icon {
+        width: 24px;
+        height: 24px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        fill: #fff;
+      }
+      .bottom-footer .bg-blue {
+        background: #00a0e3;
+      }
+      .bottom-footer .bg-dark {
+        background: #404040;
+        height: 32px;
+      }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  </head>
+  <body>
+    <!-- Input Form -->
+    <div class="generator-container" id="generator-container">
+      <div class="generator-header">Offer Letter Generator</div>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Ref. No.</label>
+          <input type="text" id="inp_ref_no" value="AC/OL/2024/" required />
+        </div>
+        <div class="form-group">
+          <label>Letter Date (Top)</label>
+          <input type="date" id="inp_offer_date" required />
+        </div>
+
+        <div class="form-group full-width">
+          <label>Employee Full Name</label>
+          <input
+            type="text"
+            id="inp_emp_name"
+            placeholder="e.g. Sayan Paul"
+            required
+          />
+        </div>
+
+        <div class="form-group full-width">
+          <label>Employee Address</label>
+          <textarea
+            id="inp_emp_address"
+            rows="2"
+            placeholder="78 Motijheel Avenue, Nagerbazar, Kolkata - 700074"
+            required
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label>Employee Email</label>
+          <input
+            type="email"
+            id="inp_emp_email"
+            placeholder="e.g. sayanpaul666.ap@gmail.com"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Employee Phone</label>
+          <input
+            type="tel"
+            id="inp_emp_phone"
+            placeholder="e.g. +91 9433579839"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Salutation (Dear...)</label>
+          <input
+            type="text"
+            id="inp_salutation"
+            placeholder="e.g. Mr. Sayan Paul"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Designation</label>
+          <input
+            type="text"
+            id="inp_designation"
+            placeholder="e.g. Full Stack Developer"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Reporting Manager</label>
+          <input
+            type="text"
+            id="inp_reporting_manager"
+            value="Rajeev Sahay"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Date of Joining</label>
+          <input type="date" id="inp_joining_date" required />
+        </div>
+
+        <div class="form-group full-width">
+          <label>Work Location</label>
+          <input
+            type="text"
+            id="inp_work_location"
+            value="Narkel Bagan office"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Monthly Salary (₹ Number)</label>
+          <input
+            type="text"
+            id="inp_probation_salary"
+            placeholder="e.g. 15,000"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label>Salary in Words</label>
+          <input
+            type="text"
+            id="inp_salary_words"
+            placeholder="e.g. Fifteen Thousand"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label>Offer Valid Until</label>
+          <input type="date" id="inp_acceptance_date" required />
+        </div>
+        <div class="form-group">
+          <label>Signatory Name</label>
+          <input
+            type="text"
+            id="inp_signatory_name"
+            value="Rajeev Sahay"
+            required
+          />
+        </div>
+
+        <button class="btn-generate" onclick="generateLetter()">
+          Generate Letter
+        </button>
       </div>
-      <div class="form-group">
-        <label>Letter Date (Top)</label>
-        <input type="date" id="inp_offer_date" required>
-      </div>
-      
-      <div class="form-group full-width">
-        <label>Employee Full Name</label>
-        <input type="text" id="inp_emp_name" placeholder="e.g. Sayan Paul" required>
-      </div>
-      
-      <div class="form-group full-width">
-        <label>Employee Address & Contact</label>
-        <textarea id="inp_emp_address" rows="3" placeholder="78 Motijheel Avenue, Nagerbazar, Kolkata - 700074&#10;Email: sayanpaul666.ap@gmail.com | Phone: +91 9433579839" required></textarea>
-      </div>
-      
-      <div class="form-group">
-        <label>Salutation (Dear...)</label>
-        <input type="text" id="inp_salutation" placeholder="e.g. Mr. Sayan Paul" required>
-      </div>
-      <div class="form-group">
-        <label>Designation</label>
-        <input type="text" id="inp_designation" placeholder="e.g. Full Stack Developer" required>
-      </div>
-
-      <div class="form-group">
-        <label>Reporting Manager</label>
-        <input type="text" id="inp_reporting_manager" value="Rajeev Sahay" required>
-      </div>
-      <div class="form-group">
-        <label>Date of Joining</label>
-        <input type="date" id="inp_joining_date" required>
-      </div>
-
-      <div class="form-group full-width">
-        <label>Work Location</label>
-        <input type="text" id="inp_work_location" value="Narkel Bagan office" required>
-      </div>
-
-      <div class="form-group">
-        <label>Monthly Salary (₹ Number)</label>
-        <input type="text" id="inp_probation_salary" placeholder="e.g. 15,000" required>
-      </div>
-      <div class="form-group">
-        <label>Salary in Words</label>
-        <input type="text" id="inp_salary_words" placeholder="e.g. Fifteen Thousand" required>
-      </div>
-
-      <div class="form-group">
-        <label>Offer Valid Until</label>
-        <input type="date" id="inp_acceptance_date" required>
-      </div>
-      <div class="form-group">
-        <label>Signatory Name</label>
-        <input type="text" id="inp_signatory_name" value="Rajeev Sahay" required>
-      </div>
-
-      <button class="btn-generate" onclick="generateLetter()">Generate Letter</button>
     </div>
-  </div>
 
-  <div class="action-bar" id="action-bar">
-    <button class="btn-download" onclick="downloadPDF()">Download PDF</button>
-  </div>
+    <div class="action-bar" id="action-bar">
+      <button class="btn-download" onclick="downloadPDF()">Download PDF</button>
+    </div>
 
-  <div class="document" id="offer-document" style="display: none;">
-    <div class="page">
-      <div class="top-header"></div>
-      <div class="content">
-        <div class="letterhead">
-          <div class="logo-area">
-            <img class="logo" src="logo.png" alt="Auto Computation" />
-            <div class="company-name">AUTO COMPUTATION</div>
-            <div class="company-meta">
-              Chinar park, Kolkata, India<br />
-              Email: info@autocomputation.com | Phone: +91 9477085478<br />
-              Website: autocomputation.com
+    <div class="document" id="offer-document" style="display: none">
+      <div class="page">
+        <div class="top-header"></div>
+        <div class="content">
+          <div class="letterhead">
+            <div class="logo-area">
+              <img class="logo" src="logo.png" alt="Auto Computation" />
+              <div class="company-name">AUTO COMPUTATION</div>
+              <div class="company-meta">
+                511, Narkel Bagan, Kolkata - 700084<br />
+                Email: contact@autocomputation.com | Phone: +919477085478<br />
+                Website: autocomputation.com
+              </div>
+            </div>
+
+            <div class="top-meta">
+              <div class="meta-row">
+                <span class="label">C. E. No.:</span><span><b>0015 5511 1515</b></span>
+              </div>
+              <div class="meta-row">
+                <span class="label">Ref. No.</span><span>[Ref. No.]</span>
+              </div>
+              <div class="meta-row">
+                <span class="label">Date</span><span>[DD Month YYYY]</span>
+              </div>
             </div>
           </div>
 
-          <div class="top-meta">
-            <div class="meta-row"><span class="label">Assessee No.</span><span>311111507306</span></div>
-            <div class="meta-row"><span class="label">Ref. No.</span><span>[Ref. No.]</span></div>
-            <div class="meta-row"><span class="label">Date</span><span>[DD Month YYYY]</span></div>
+          <div class="to-block">
+            <strong>To</strong><br />
+            <strong>[Employee Full Name]</strong><br />
+            [Employee Address]<br />
+            Email: [Employee Email] | Phone: [Employee Phone]
+          </div>
+
+          <div class="subject">
+            Subject: Offer of Employment for the Position of [Designation]
+          </div>
+
+          <div class="salutation">Dear [Mr./Ms. Name],</div>
+
+          <p class="lead">
+            We are pleased to appoint you as [Designation] with Auto Computation
+            effective from [joining_date]. We value your contribution to our
+            team and look forward to a long term and successful association. The
+            terms and conditions of your employment are as follows:
+          </p>
+
+          <div
+            class="letter-body"
+            style="
+              font-size: 11px;
+              line-height: 1.5;
+              text-align: justify;
+              margin-bottom: 20px;
+            "
+          >
+            <p style="margin: 0 0 10px">
+              You are being offered the full-time role of [Designation], with
+              your employment commencing on [joining_date] at our
+              [work_location]. You will be reporting directly to Rajeev Sahay.
+              Your employment will be subject to a 90-day probationary period,
+              after which it may be confirmed. Please note that management
+              reserves the right to assign you to other locations based on
+              business requirements. Your standard working schedule will
+              systematically follow <b>Monday to Saturday</b>,
+              <b>from 10:00 AM to 7:00 PM</b>.
+            </p>
+            <p style="margin: 0 0 10px">
+              Your Gross Monthly Salary will be ₹[probation_salary]/- (Rupees
+              [salary_in_words] only), payable on a monthly basis via NEFT. This
+              official compensation structure will consistently remain
+              applicable during both your probation and post-confirmation
+              periods unless subsequently revised, and is strictly subject to
+              all standard statutory deductions.
+            </p>
+            <p style="margin: 0 0 10px">
+              Prior to onboarding, please submit valid copies of your
+              <b>Aadhaar card</b>, <b>PAN card</b>, and
+              <b>active Bank Account details</b>. All documents must be
+              authentic to process your employment. You are expected to strictly
+              abide by company policies and maintain absolute confidentiality
+              regarding all company data, clients, and operational processes.
+              Any intellectual property produced during your tenure remains the
+              exclusive property of Auto Computation.
+            </p>
+            <p style="margin: 0 0 10px">
+              This offer of employment is open for acceptance until [acceptance_date].
+              If you agree to these terms, please sign and return a copy
+              of this letter as formal confirmation. We look forward to your
+              professional association with Auto Computation and wish you
+              tremendous success in your new role.
+            </p>
+          </div>
+
+          <div class="signature-wrap">
+            <div>For Auto Computation</div>
+            <div style="height: 30px; margin: 8px 0"></div>
+            <div class="sig-name" style="margin-top: 0px">
+              [Name of Signatory]
+            </div>
+            <div>Proprietor, Auto Computation</div>
+          </div>
+
+          <div class="acceptance">
+            <div class="acceptance-title">Acceptance</div>
+            <p>
+              I, [Employee Full Name], have read and understood the terms of
+              this Offer Letter and hereby accept the offer of employment for
+              the position of [Designation] with Auto Computation.
+            </p>
+
+            <div class="signature-lines">
+              <div class="line-field">
+                Employee Signature<span class="line"></span>
+              </div>
+              <div class="line-field">Full Name<span class="line"></span></div>
+              <div class="line-field">Date<span class="line"></span></div>
+              <div class="line-field">Place<span class="line"></span></div>
+            </div>
           </div>
         </div>
-
-        <div class="to-block">
-          <strong>To</strong><br />
-          <strong>[Employee Full Name]</strong><br />
-          [Employee Address]
+        <div class="diamonds">
+          <span class="diamond d1"></span><span class="diamond d2"></span
+          ><span class="diamond d3"></span><span class="diamond d4"></span>
+          <span class="diamond d5"></span><span class="diamond d6"></span
+          ><span class="diamond d7"></span><span class="diamond d8"></span>
+          <span class="diamond d9"></span><span class="diamond d10"></span
+          ><span class="diamond d11"></span><span class="diamond d12"></span>
         </div>
 
-        <div class="subject">Subject: Offer of Employment for the Position of [Designation]</div>
-
-        <div class="salutation">Dear [Mr./Ms. Name],</div>
-
-        <p class="lead">We are pleased to appoint you as [Designation] with Auto Computation effective from [joining_date]. We value your contribution to our team and look forward to a long term and successful association. The terms and conditions of your employment are as follows:</p>
-
-        <div class="letter-body" style="font-size: 11px; line-height: 1.5; text-align: justify; margin-bottom: 20px;">
-          <p style="margin: 0 0 10px;">You are being offered the full-time role of [Designation], with your employment commencing on [joining_date] at our [work_location]. You will be reporting directly to [Reporting Manager / Management]. Your employment will be subject to a 90-day probationary period, after which it may be confirmed. Please note that management reserves the right to assign you to other locations based on business requirements.</p>
-          <p style="margin: 0 0 10px;">Your Gross Monthly Salary will be ₹[probation_salary]/- (Rupees [salary_in_words] only), payable on a monthly basis via NEFT. This official compensation structure will consistently remain applicable during both your probation and post-confirmation periods unless subsequently revised, and is strictly subject to all standard statutory deductions.</p>
-          <p style="margin: 0 0 10px;">Your standard working schedule will systematically follow Monday to Saturday, from 10:00 AM to 7:00 PM. You are entitled to 12 days of annual leave strictly calculated on a pro-rata basis. Any unforeseen medical or sick leave extending beyond two consecutive working days requires the timely submission of a valid, verifiable medical certificate.</p>
-          <p style="margin: 0 0 10px;">Prior to onboarding, you are officially mandated to submit clear, valid copies of your Aadhaar card, PAN card, and active Bank Account details. All legally submitted documents must be fundamentally authentic and unequivocally belong to you in order for our team to process your employment profile. Additionally, as an employee, you are expected to strictly abide by all internal company policies and maintain absolute confidentiality regarding all company data, prospective clients, and operational processes. All deliverables, codebases, or intellectual property produced during your active tenure remain the exclusive property of Auto Computation.</p>
-          <p style="margin: 0 0 10px;">This detailed offer of employment remains securely open for your acceptance until [Acceptance Date]. If you willingly agree with the presented terms and conditions, we actively encourage you to formally sign and promptly return a copy of this entire letter detailing your complete acceptance. We enthusiastically look forward to your professional association with Auto Computation and sincerely wish you tremendous success in your new role.</p>
-        </div>
-
-        <div class="signature-wrap">
-          <div>For Auto Computation</div>
-          <div style="height: 45px; margin: 8px 0;"></div>
-          <div class="sig-name" style="margin-top: 0px;">[Name of Signatory]</div>
-          <div>Proprietor, Auto Computation</div>
-        </div>
-
-        <div class="acceptance">
-          <div class="acceptance-title">Acceptance</div>
-          <p>I, [Employee Full Name], have read and understood the terms of this Offer Letter and hereby accept the offer of employment for the position of [Designation] with Auto Computation.</p>
-          
-          <div class="signature-lines">
-            <div class="line-field">Employee Signature<span class="line"></span></div>
-            <div class="line-field">Full Name<span class="line"></span></div>
-            <div class="line-field">Date<span class="line"></span></div>
-            <div class="line-field">Place<span class="line"></span></div>
+        <div class="bottom-footer">
+          <div class="footer-row">
+            <span>Phone: +919477085478</span>
+            <div class="icon bg-blue">
+              <svg width="14" height="14" viewBox="0 0 24 24">
+                <path
+                  d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"
+                />
+              </svg>
+            </div>
           </div>
-        </div>
-      </div>
-      <div class="diamonds">
-        <span class="diamond d1"></span><span class="diamond d2"></span><span class="diamond d3"></span><span class="diamond d4"></span>
-        <span class="diamond d5"></span><span class="diamond d6"></span><span class="diamond d7"></span><span class="diamond d8"></span>
-        <span class="diamond d9"></span><span class="diamond d10"></span><span class="diamond d11"></span><span class="diamond d12"></span>
-      </div>
-      
-      <div class="bottom-footer">
-        <div class="footer-row">
-          <span>Phone: 9678523416</span>
-          <div class="icon bg-blue">
-            <svg width="14" height="14" viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.15 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
-          </div>
-        </div>
-        <div class="footer-row">
-          <div>www.autocomputation.com<br>support@autocomputation.com</div>
-          <div class="icon bg-dark">
-            <svg width="16" height="16" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+          <div class="footer-row">
+            <div>www.autocomputation.com<br />contact@autocomputation.com</div>
+            <div class="icon bg-dark">
+              <svg width="16" height="16" viewBox="0 0 24 24">
+                <path
+                  d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"
+                />
+              </svg>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
 
-  <script>
-    function formatDate(dateStr) {
-      if (!dateStr) return '';
-      const date = new Date(dateStr);
-      const options = { day: '2-digit', month: 'long', year: 'numeric' };
-      return date.toLocaleDateString('en-GB', options); 
-    }
-
-    function generateLetter() {
-      // Get values
-      const vals = {
-        '[Ref. No.]': document.getElementById('inp_ref_no').value,
-        '[DD Month YYYY]': formatDate(document.getElementById('inp_offer_date').value),
-        '[Employee Full Name]': document.getElementById('inp_emp_name').value,
-        '[Employee Address]': document.getElementById('inp_emp_address').value.replace(/\n/g, '<br/>'),
-        '[Mr./Ms. Name]': document.getElementById('inp_salutation').value,
-        '[Designation]': document.getElementById('inp_designation').value,
-        '[Reporting Manager / Management]': document.getElementById('inp_reporting_manager').value,
-        '[joining_date]': formatDate(document.getElementById('inp_joining_date').value),
-        '[work_location]': document.getElementById('inp_work_location').value,
-        '[probation_salary]': document.getElementById('inp_probation_salary').value,
-        '[salary_in_words]': document.getElementById('inp_salary_words').value,
-        '[Acceptance Date]': formatDate(document.getElementById('inp_acceptance_date').value),
-        '[Name of Signatory]': document.getElementById('inp_signatory_name').value
-      };
-
-      // Check if required fields exist
-      if (!Object.values(vals).every(v => v !== '')) {
-        alert("Please fill out all fields before generating the letter.");
-        return;
+    <script>
+      function formatDate(dateStr) {
+        if (!dateStr) return "";
+        const date = new Date(dateStr);
+        const options = { day: "2-digit", month: "long", year: "numeric" };
+        return date.toLocaleDateString("en-GB", options);
       }
 
-      // We replace the document container innerHTML globally
-      const docElem = document.getElementById('offer-document');
-      let content = docElem.innerHTML;
+      function generateLetter() {
+        // Get values
+        const vals = {
+          "[Ref. No.]": document.getElementById("inp_ref_no").value,
+          "[DD Month YYYY]": formatDate(
+            document.getElementById("inp_offer_date").value,
+          ),
+          "[Employee Full Name]": document.getElementById("inp_emp_name").value,
+          "[Employee Address]": document
+            .getElementById("inp_emp_address")
+            .value.replace(/\n/g, "<br/>"),
+          "[Employee Email]": document.getElementById("inp_emp_email").value,
+          "[Employee Phone]": document.getElementById("inp_emp_phone").value,
+          "[Mr./Ms. Name]": document.getElementById("inp_salutation").value,
+          "[Designation]": document.getElementById("inp_designation").value,
+          "[Reporting Manager / Management]": document.getElementById(
+            "inp_reporting_manager",
+          ).value,
+          "[joining_date]": formatDate(
+            document.getElementById("inp_joining_date").value,
+          ),
+          "[work_location]": document.getElementById("inp_work_location").value,
+          "[probation_salary]": document.getElementById("inp_probation_salary")
+            .value,
+          "[salary_in_words]":
+            document.getElementById("inp_salary_words").value,
+          "[acceptance_date]": formatDate(
+            document.getElementById("inp_acceptance_date").value,
+          ),
+          "[Name of Signatory]":
+            document.getElementById("inp_signatory_name").value,
+        };
 
-      // Replace globally in the template content
-      for (const [key, value] of Object.entries(vals)) {
-        // Create regex to replace all instances and escape brackets
-        const escapedKey = key.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-        const regex = new RegExp(escapedKey, 'g');
-        content = content.replace(regex, `<strong>${value}</strong>`);
+        // Check if required fields exist
+        if (!Object.values(vals).every((v) => v !== "")) {
+          alert("Please fill out all fields before generating the letter.");
+          return;
+        }
+
+        // We replace the document container innerHTML globally
+        const docElem = document.getElementById("offer-document");
+        let content = docElem.innerHTML;
+
+        // Replace globally in the template content
+        for (const [key, value] of Object.entries(vals)) {
+          // Create regex to replace all instances and escape brackets
+          const escapedKey = key.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+          const regex = new RegExp(escapedKey, "g");
+          content = content.replace(regex, `<strong>${value}</strong>`);
+        }
+
+        // Update and show
+        docElem.innerHTML = content;
+
+        document.getElementById("generator-container").style.display = "none";
+        document.getElementById("action-bar").style.display = "block";
+        docElem.style.display = "block";
       }
 
-      // Update and show
-      docElem.innerHTML = content;
-      
-      document.getElementById('generator-container').style.display = 'none';
-      document.getElementById('action-bar').style.display = 'block';
-      docElem.style.display = 'block';
-    }
+      function downloadPDF() {
+        const element = document.getElementById("offer-document");
+        const empName =
+          document.getElementById("inp_emp_name").value || "Employee";
+        const btn = document.querySelector(".btn-download");
 
-    function downloadPDF() {
-      const element = document.getElementById('offer-document');
-      const empName = document.getElementById('inp_emp_name').value || 'Employee';
-      const btn = document.querySelector('.btn-download');
-      
-      btn.innerText = 'Generating PDF...';
-      btn.disabled = true;
+        btn.innerText = "Generating PDF...";
+        btn.disabled = true;
 
-      const page = document.querySelector('.page');
-      const oldMargin = page.style.margin;
-      page.style.margin = '0 auto'; // Remove bottom margin to prevent spilling into a blank second PDF page
+        const page = document.querySelector(".page");
+        const oldMargin = page.style.margin;
+        page.style.margin = "0 auto"; // Remove bottom margin to prevent spilling into a blank second PDF page
 
-      const opt = {
-        margin:       0,
-        filename:     `Offer_Letter_${empName.replace(/\s+/g, '_')}.pdf`,
-        image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, logging: false },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
-      };
+        const opt = {
+          margin: 0,
+          filename: `Offer_Letter_${empName.replace(/\s+/g, "_")}.pdf`,
+          image: { type: "jpeg", quality: 0.98 },
+          html2canvas: { scale: 2, useCORS: true, logging: false },
+          jsPDF: { unit: "mm", format: "a4", orientation: "portrait" },
+        };
 
-      html2pdf().set(opt).from(element).save().then(() => {
-        btn.innerText = 'Download PDF';
-        btn.disabled = false;
-        page.style.margin = oldMargin; // Restore margin
-      }).catch(err => {
-        console.error('PDF Generation Error:', err);
-        btn.innerText = 'Download PDF';
-        btn.disabled = false;
-        page.style.margin = oldMargin; // Restore margin
-        alert('An error occurred while generating the PDF.');
-      });
-    }
-  </script>
-</body>
+        html2pdf()
+          .set(opt)
+          .from(element)
+          .save()
+          .then(() => {
+            btn.innerText = "Download PDF";
+            btn.disabled = false;
+            page.style.margin = oldMargin; // Restore margin
+          })
+          .catch((err) => {
+            console.error("PDF Generation Error:", err);
+            btn.innerText = "Download PDF";
+            btn.disabled = false;
+            page.style.margin = oldMargin; // Restore margin
+            alert("An error occurred while generating the PDF.");
+          });
+      }
+    </script>
+  </body>
 </html>
